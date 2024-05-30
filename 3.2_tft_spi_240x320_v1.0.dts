@@ -1,0 +1,64 @@
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "allwinner,sun50i-h616";
+    fragment@0 {
+        target-path = "/";
+        __overlay__ {
+            /*backlight_gpio: backlight_gpio {
+                compatible = "gpio-backlight";
+		gpios = <&pio 8 14 0>; // PI14
+                default-on;
+	    };*/
+            backlight_pwm: backlight_pwm {
+                compatible = "pwm-backlight";
+                brightness-levels = <0 25 50 75 100 125 150 175 200 225 255>;
+		default-brightness-level = <6>;
+		pwms = <&pwm 4 25000 0>; // PI14
+                pwm_names = "backlight";
+		status = "okay";
+
+            };
+        };
+    };
+    fragment@1 {
+        target = <&spi1>;
+        __overlay__ {
+            status = "okay";
+	    cs-gpios = <&pio 7 5 0>; /*PH5=CS0 PH9=CS1*/
+            ili9341: ili9341@0 {
+                compatible = "adafruit,yx240qv29", "ilitek,ili9341";
+                reg = <0>;
+                pinctrl-names = "default";
+                spi-max-frequency = <48000000>;
+                rotation = <270>;
+                reset-gpios = <&pio 8 6 0>; /* PI6 */
+                dc-gpios = <&pio 7 4 0>; /* PH4 */
+                backlight = <&backlight_pwm>;
+            };
+            ads7846: ads7846@0 {
+                compatible = "ti,ads7846";
+                reg = <1>;
+                pinctrl-names = "default";
+                spi-max-frequency = <2000000>;
+                interrupts = <8 5 1>; /* PI5 - IRQ */
+                interrupt-parent = <&pio>;
+                pendown-gpio = <&pio 8 5 0>; /* PI5 */
+
+                ti,swap-xy = <1>;
+                ti,keep_vref_on = /bits/ 16 <1>;
+                ti,x-min = /bits/ 16 <280>;
+                ti,y-min = /bits/ 16 <350>;
+                ti,x-max = /bits/ 16 <3850>;
+                ti,y-max = /bits/ 16 <3850>;
+                ti,pressure-min = /bits/ 16 <0>;
+		ti,pressure-max = /bits/ 16 <255>;
+                ti,x-plate-ohms = /bits/ 16 <133>;
+                ti,debounce-max = /bits/ 16 <50>;
+                ti,debounce-tol = /bits/ 16 <30>;
+                ti,debounce-rep = /bits/ 16 <1>;
+		wakeup-source;
+	    };
+        };
+    };
+} ;
