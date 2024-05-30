@@ -1,0 +1,1 @@
+# orangepi-zero-2w
