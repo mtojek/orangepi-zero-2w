@@ -15,9 +15,8 @@
                 brightness-levels = <0 25 50 75 100 125 150 175 200 225 255>;
 		default-brightness-level = <6>;
 		pwms = <&pwm 4 25000 0>; // PI14
-                pwm_names = "backlight";
+                pwm-names = "backlight";
 		status = "okay";
-
             };
         };
     };
@@ -31,10 +30,12 @@
                 reg = <0>;
                 pinctrl-names = "default";
                 spi-max-frequency = <48000000>;
+                fps = <60>;
                 rotation = <270>;
                 reset-gpios = <&pio 8 6 0>; /* PI6 */
                 dc-gpios = <&pio 7 4 0>; /* PH4 */
                 backlight = <&backlight_pwm>;
+                debug = <4>;
             };
             ads7846: ads7846@0 {
                 compatible = "ti,ads7846";
@@ -43,7 +44,7 @@
                 spi-max-frequency = <2000000>;
                 interrupts = <8 5 1>; /* PI5 - IRQ */
                 interrupt-parent = <&pio>;
-                pendown-gpio = <&pio 8 5 0>; /* PI5 */
+                pendown-gpio = <&pio 8 5 1>; /* PI5 */
 
                 ti,swap-xy = <1>;
                 ti,keep_vref_on = /bits/ 16 <1>;
@@ -61,4 +62,4 @@
 	    };
         };
     };
-} ;
+};

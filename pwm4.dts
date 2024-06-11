@@ -1,0 +1,23 @@
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "allwinner,sun50i-h616";
+    fragment@0 {
+        target = <&pio>;
+        __overlay__ {
+            pwm4_pi_pin: pwm4-pi-pin {
+		pins = "PI14";
+		function = "pwm4";
+	    };
+        };
+    };
+    fragment@1 {
+        target-path = "/soc";
+        __overlay__ {
+            pwm4: pwm4@0300a000 {
+                pinctrl-names = "default";
+                pinctrl-0 = <&pwm4_pi_pin>;
+            };
+        };
+    };
+};
