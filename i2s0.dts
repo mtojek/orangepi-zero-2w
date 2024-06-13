@@ -10,7 +10,7 @@
                 function = "i2s0";
                 drive-strength = <0x14>;
                 bias-disable;
-            }; 
+            };
             ahub_daudio0_pins_b: ahub_daudio0@1 {
                 pins = "PI3";
                 function = "i2s0_dout0";
@@ -37,13 +37,16 @@
             ahub0_plat: ahub0_plat {
                 #sound-dai-cells = <0>;
 		compatible	= "allwinner,sunxi-snd-plat-ahub";
-                apb_num		= <1>;	/* for dma port 3 */
-		dmas		= <&dma 4>, <&dma 4>;
+                apb_num		= <2>;	/* for dma port 5 */
+		dmas		= <&dma 5>, <&dma 5>;
 		dma-names	= "tx", "rx";
 		playback_cma	= <128>;
 		capture_cma	= <128>;
 		tx_fifo_size	= <128>;
 		rx_fifo_size	= <128>;
+                tdm_num         = <0>;
+                tx_pin          = <0>;
+                rx_pin          = <0>;
 
 		pinctrl-names = "default", "sleep";
                 pinctrl_used;
@@ -56,19 +59,25 @@
                 compatible = "allwinner,sunxi-snd-mach";
 		soundcard-mach,name = "ahubi2s0";
 		soundcard-mach,format = "i2s";
+                soundcard-mach,frame-master = <&ahub0_cpu>;
+                soundcard-mach,bitclock-master = <&ahub0_cpu>;
+                soundcard-mach,slot-num         = <2>;
+                soundcard-mach,slot-width       = <32>;
 
 		status = "okay";
 
-                soundcard-mach,cpu {
+                ahub0_cpu: soundcard-mach,cpu {
 		    sound-dai = <&ahub0_plat>;
+                    soundcard-mach,pll-fs   = <4>;
+                    soundcard-mach,mclk-fs  = <0x100>;
 		};
 
-		soundcard-mach,codec {
+		ahub0_codec: soundcard-mach,codec {
 		};
             };
-            hdmi: hdmi@6000000 {
+            /*hdmi: hdmi@6000000 {
                 status = "disabled";
-            };
+            };*/
         };
     };
-}; 
+};
