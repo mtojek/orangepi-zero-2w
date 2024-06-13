@@ -1,0 +1,74 @@
+/dts-v1/;
+/plugin/;
+/ {
+    compatible = "allwinner,sun50i-h616";
+    fragment@0 {
+        target = <&pio>;
+        __overlay__ {
+            ahub_daudio0_pins_a: ahub_daudio0@0 {
+                pins = "PI0", "PI1", "PI2";
+                function = "i2s0";
+                drive-strength = <0x14>;
+                bias-disable;
+            }; 
+            ahub_daudio0_pins_b: ahub_daudio0@1 {
+                pins = "PI3";
+                function = "i2s0_dout0";
+                drive-strength = <0x14>;
+                bias-disable;
+            };
+            ahub_daudio0_pins_c: ahub_daudio0@2 {
+                pins = "PI4";
+                function = "i2s0_din0";
+	        drive-strength = <0x14>;
+		bias-disable;
+            };
+            ahub_daudio0_pins_d: ahub_daudio0_sleep {
+		pins = "PI0", "PI1", "PI2", "PI3", "PI4";
+		function = "gpio_in";
+		drive-strength = <0x14>;
+        	bias-disable;
+            };
+        };
+    };
+    fragment@1 {
+        target-path = "/soc";
+        __overlay__ {
+            ahub0_plat: ahub0_plat {
+                #sound-dai-cells = <0>;
+		compatible	= "allwinner,sunxi-snd-plat-ahub";
+                apb_num		= <1>;	/* for dma port 3 */
+		dmas		= <&dma 4>, <&dma 4>;
+		dma-names	= "tx", "rx";
+		playback_cma	= <128>;
+		capture_cma	= <128>;
+		tx_fifo_size	= <128>;
+		rx_fifo_size	= <128>;
+
+		pinctrl-names = "default", "sleep";
+                pinctrl_used;
+		pinctrl-0 = <&ahub_daudio0_pins_a>, <&ahub_daudio0_pins_b>, <&ahub_daudio0_pins_c>;
+		pinctrl-1 = <&ahub_daudio0_pins_d>;
+
+                status = "okay";
+            };
+            ahub0_mach: ahub0_mach {
+                compatible = "allwinner,sunxi-snd-mach";
+		soundcard-mach,name = "ahubi2s0";
+		soundcard-mach,format = "i2s";
+
+		status = "okay";
+
+                soundcard-mach,cpu {
+		    sound-dai = <&ahub0_plat>;
+		};
+
+		soundcard-mach,codec {
+		};
+            };
+            hdmi: hdmi@6000000 {
+                status = "disabled";
+            };
+        };
+    };
+}; 
