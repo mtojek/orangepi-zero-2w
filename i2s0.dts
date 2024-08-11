@@ -10,7 +10,7 @@
                 function = "i2s0";
                 drive-strength = <0x14>;
                 bias-disable;
-            };
+            }; 
             ahub_daudio0_pins_b: ahub_daudio0@1 {
                 pins = "PI3";
                 function = "i2s0_dout0";
@@ -80,4 +80,4 @@
             };*/
         };
     };
-};
+}; 
