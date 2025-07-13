@@ -44,7 +44,7 @@
                 spi-max-frequency = <2000000>;
                 interrupts = <8 5 1>; /* PI5 - IRQ */
                 interrupt-parent = <&pio>;
-                pendown-gpio = <&pio 8 5 1>; /* PI5 */
+                pendown-gpio = <&pio 8 5 0>; /* PI5 */
 
                 ti,swap-xy = <1>;
                 ti,keep_vref_on = /bits/ 16 <1>;

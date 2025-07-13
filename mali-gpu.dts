@@ -1,0 +1,55 @@
+/dts-v1/;
+/plugin/;
+
+/ {
+    compatible = "allwinner,sun50i-h616";
+    fragment@0 {
+        target = <&gpu>;
+
+        __overlay__ {
+            status = "okay";
+            operating-points-v2 = <&mali_gpu_opp_table>;
+        };
+    };
+
+    fragment@1 {
+        target-path = "/";
+
+        __overlay__ {
+            mali_gpu_opp_table: mali_gpu_opp_table {
+                compatible = "operating-points-v2";
+
+		opp-420000000 {
+			opp-hz = /bits/ 64 <420000000>;
+			opp-microvolt = <900000>;
+		};
+
+		opp-456000000 {
+			opp-hz = /bits/ 64 <456000000>;
+			opp-microvolt = <900000>;
+		};
+
+		opp-504000000 {
+			opp-hz = /bits/ 64 <504000000>;
+			opp-microvolt = <900000>;
+		};
+
+		opp-552000000 {
+			opp-hz = /bits/ 64 <552000000>;
+			opp-microvolt = <900000>;
+		};
+
+		opp-600000000 {
+			opp-hz = /bits/ 64 <600000000>;
+			opp-microvolt = <900000>;
+		};
+
+		opp-648000000 {
+			opp-hz = /bits/ 64 <648000000>;
+			opp-microvolt = <960000>;
+		};
+
+            };
+        };
+    };
+};

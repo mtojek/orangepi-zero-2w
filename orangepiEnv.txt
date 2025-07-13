@@ -1,0 +1,9 @@
+verbosity=1
+bootlogo=false
+console=both
+disp_mode=1920x1080p60
+overlay_prefix=sun50i-h616
+rootdev=UUID=be14d996-e541-4ef3-806c-474b94e720c8
+rootfstype=ext4
+user_overlays=sun50i-h616-3.2_tft_spi_240x320_v1.0 sun50i-h616-mali-gpu sun50i-h616-i2s
+extraargs=no_hash_pointers

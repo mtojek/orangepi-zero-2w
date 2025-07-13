@@ -75,9 +75,9 @@
 		ahub0_codec: soundcard-mach,codec {
 		};
             };
-            /*hdmi: hdmi@6000000 {
+            hdmi: hdmi@6000000 {
                 status = "disabled";
-            };*/
+            };
         };
     };
 }; 
