@@ -32,7 +32,7 @@
                 spi-max-frequency = <80000000>;
                 fps = <60>;
                 rotation = <270>;
-                reset-gpios = <&pio 8 6 0>; /* PI6 */
+                reset-gpios = <&pio 8 15 0>; /* PI15 */
                 dc-gpios = <&pio 7 4 0>; /* PH4 */
                 backlight = <&backlight_pwm>;
                 debug = <4>;
@@ -42,9 +42,9 @@
                 reg = <1>;
                 pinctrl-names = "default";
                 spi-max-frequency = <2000000>;
-                interrupts = <8 5 1>; /* PI5 - IRQ */
+                interrupts = <8 16 1>; /* PI16 - IRQ */
                 interrupt-parent = <&pio>;
-                pendown-gpio = <&pio 8 5 0>; /* PI5 */
+                pendown-gpio = <&pio 8 16 0>; /* PI16 */
 
                 ti,swap-xy = <1>;
                 ti,keep_vref_on = /bits/ 16 <1>;
