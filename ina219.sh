@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-H=/sys/class/hwmon/hwmon4
+H=$(grep -l "ina219" /sys/class/hwmon/hwmon*/name | sed 's|/name||')
 
 v_mv=$(cat $H/in1_input)
 i_ma=$(cat $H/curr1_input)
